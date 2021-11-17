@@ -13,13 +13,13 @@ public class dato_Persona {
         //almancenar nuestra consulta
     private ResultSet rs=null;
      
-    private int idpersona,edad;
-    private String nombre,appat,apmat,sexo;
+    private int idpersona;
+    private String nombre,appat,apmat,sexo,edad;
 
     public dato_Persona() {
     }
 
-    public dato_Persona(int idpersona, int edad, String nombre, String appat, String apmat, String sexo) {
+    public dato_Persona(int idpersona,String edad, String nombre, String appat, String apmat, String sexo) {
         this.idpersona = idpersona;
         this.edad = edad;
         this.nombre = nombre;
@@ -36,11 +36,11 @@ public class dato_Persona {
         this.idpersona = idpersona;
     }
 
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(String edad) {
         this.edad = edad;
     }
 
@@ -100,7 +100,7 @@ public class dato_Persona {
                       i=Integer.parseInt(rs.getString(1));
                      i++;
                      //System.out.println(" "rs.getString(1));
-                      JOptionPane.showMessageDialog(null,"Ingresando datos"+rs.getString(1));
+//                      JOptionPane.showMessageDialog(null,"Ingresando datos"+rs.getString(1));
                  }
                  else {
                     i=1;
@@ -122,39 +122,42 @@ public class dato_Persona {
     }
     //crear un metodo para insert
     //CRUD Cread, Read Update,Delete
-//    public void GuardarEmpleado(String nombre,String apellid_Pat,String apellido_Mat,String edad,String sex)
-//    {
-//        int revisar=-1;
-//        int bandera=0;
-//     JOptionPane.showMessageDialog(null,"Ingresando datos");
-//     //si hay conexion 
-//     try{
-//             if(c.b==true){
-//         //instruccion sql para selecionar e insertar
-//                try{
-//                   rs=st.executeQuery("select * from empleados;");
-//                   revisar=st.executeUpdate("insert into empleados (idempleado,nombre, appat,apmat,edad,sexo) \n" 
-//                                             +"VALUES"+ "("+idpersona+",\'"+nombre+"\','\'"+apellid_Pat+"\',\'"
-//                                                     +apellido_Mat+"\',\'"+edad+"\',\'"+sex+"\',);");
-//                       
-//                   if(revisar==1)
-//                   {
-//                      bandera=1; 
-//                   }
-//                   st.close();
-//                   rs.close();
-//                }catch(SQLException sqlex){
-//                      JOptionPane.showMessageDialog(null,"Error en los datos");
-//                 
-//                }
-//            }
-//        }
-//          catch(Exception ex){
-//          JOptionPane.showMessageDialog(null,"No hay conexion"+ ex);
-//     
-//                  
-//          }
-//     }
+    public void GuardarEmpleado(String nombre,String apellid_Pat,
+            String apellido_Mat,String edad,String sex)
+    {
+        int revisar=-1;
+        int bandera=0;
+       // System.out.println("Datos que llegan de la vista "+nombre+apellid_Pat+
+//                apellido_Mat+edad+sex);
+    // JOptionPane.showMessageDialog(null,"Ingresando datos");
+     //si hay conexion 
+     try{
+             if(c.b==true){
+         //instruccion sql para selecionar e insertar
+                try{
+                   rs=st.executeQuery("select * from empleados;");
+                   revisar=st.executeUpdate("insert into empleados (idempleado,nombre,appat,apmat,edad,sexo) \n" 
+                                             +"VALUES"+ "("+idpersona+",\'"+nombre+"\',\'"+apellid_Pat+"\',\'"
+                                                     +apellido_Mat+"\',"+edad+",\'"+sex+"\');");
+                       
+                   if(revisar==1)
+                   {
+                      bandera=1; 
+                   }
+                   st.close();
+                   rs.close();
+                }catch(SQLException sqlex){
+                      JOptionPane.showMessageDialog(null,"Error en los datos");
+                 
+                }
+            }
+        }
+          catch(Exception ex){
+          JOptionPane.showMessageDialog(null,"No hay conexion"+ ex);
+     
+                  
+          }
+     }
 //    
     public static void main(String s[]) throws SQLException
     {

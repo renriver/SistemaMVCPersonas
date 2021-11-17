@@ -87,7 +87,7 @@ public class vista_Personas extends javax.swing.JFrame {
         });
         jPanel1.add(bntGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 320, 240));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 480, 240));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -97,17 +97,21 @@ public class vista_Personas extends javax.swing.JFrame {
         //cuando presiones el boton debe de almacenar los datos al BD
        
         //dp.GuardarEmpleado("Juan", "Lopez", "Perez", 18, "M");
-//        dp.setNombre(txtNombre.getText());
-//        dp.setNombre(txtAppat.getText());
-//        dp.setNombre(txtApmat.getText());
-//        dp.setNombre(txtEdad.getText());
-//        dp.setNombre(txtSexo.getText());
-//        dp.GuardarEmpleado(txtNombre.getText(), 
-//                          txtAppat.getText(), 
-//                          txtApmat.getText(),
-//                          txtEdad.getText(),
-//                          txtSexo.getText());
-        dp.idMaximo();
+        dp.setNombre(txtNombre.getText());
+        dp.setAppat(txtAppat.getText());
+        dp.setApmat(txtApmat.getText());
+        dp.setEdad(txtEdad.getText());
+        dp.setSexo(txtSexo.getText());
+        dp.GuardarEmpleado(txtNombre.getText(), 
+                          txtAppat.getText(), 
+                          txtApmat.getText(),
+                          txtEdad.getText(),
+                          txtSexo.getText());
+        int id=dp.idMaximo();
+        
+        idp.setText(""+id);
+        txtNombre.setText("");
+        txtAppat.setText("");
         
     }//GEN-LAST:event_bntGuardarActionPerformed
 
