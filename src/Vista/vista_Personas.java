@@ -33,6 +33,7 @@ public class vista_Personas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jlID = new javax.swing.JLabel();
         jlNom = new javax.swing.JLabel();
@@ -47,6 +48,10 @@ public class vista_Personas extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtSexo = new javax.swing.JTextField();
         bntGuardar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbDatos = new javax.swing.JTable();
+        btnConsulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -87,7 +92,35 @@ public class vista_Personas extends javax.swing.JFrame {
         });
         jPanel1.add(bntGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 480, 240));
+        jTabbedPane1.addTab("Altas", jPanel1);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 102)), "Informacion Personal"));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Folio", "Nombre(s)", "Apellido Paterno", "Apellido Materno", "Sexo", "Edad"
+            }
+        ));
+        jScrollPane1.setViewportView(tbDatos);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 370, 90));
+
+        btnConsulta.setText("Consultar");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+
+        jTabbedPane1.addTab("Consultas", jPanel2);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 440, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -114,6 +147,12 @@ public class vista_Personas extends javax.swing.JFrame {
         txtAppat.setText("");
         
     }//GEN-LAST:event_bntGuardarActionPerformed
+
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        // TODO add your handling code here:
+        //tengo que hacer mi logica papra la consulta a la BD atravez de modelo
+        
+    }//GEN-LAST:event_btnConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,14 +191,19 @@ public class vista_Personas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntGuardar;
+    private javax.swing.JButton btnConsulta;
     private javax.swing.JTextField idp;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jlApat;
     private javax.swing.JLabel jlApmat;
     private javax.swing.JLabel jlEdad;
     private javax.swing.JLabel jlID;
     private javax.swing.JLabel jlNom;
     private javax.swing.JLabel jlSex;
+    private javax.swing.JTable tbDatos;
     private javax.swing.JTextField txtApmat;
     private javax.swing.JTextField txtAppat;
     private javax.swing.JTextField txtEdad;

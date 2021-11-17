@@ -162,7 +162,8 @@ public class dato_Persona {
     public static void main(String s[]) throws SQLException
     {
      dato_Persona dp=new dato_Persona();
-     dp.numero();
+     //dp.numero();
+     dp.Consulta();
     }
     
       //para obtner el numero total de dato
@@ -199,5 +200,31 @@ public class dato_Persona {
         }
          return x;
      }
-  
+  //metodo para la consulta de datos
+    public String [][] Consulta() throws SQLException{
+              String datos[][]=new String[0][6];
+              int cons=0;
+              int renglon=0;
+//               Statement st = c.createStatement();
+               //ResultSet rs = st.executeQuery("SELECT * FROM empleados order by idempleado;");
+               ResultSet rs = st.executeQuery("SELECT idempleado,nombre,appat,apmat,edad,sexo"
+                       + " FROM empleados order by idempleado;");
+               
+               while (rs.next()) {
+                     // cons++;
+                     System.out.print("Column 1 returned ");
+                        System.out.println(rs.getString(1));
+                        System.out.println(rs.getString(2));
+                        System.out.println(rs.getString(3));
+                        System.out.println(rs.getString(4));
+                        System.out.println(rs.getString(5));
+//                      
+//                      
+//                      
+//                      
+//                        
+                      renglon ++;        
+               }
+        return null;
+    }
 }
