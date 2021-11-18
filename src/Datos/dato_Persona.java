@@ -1,6 +1,7 @@
 
 package Datos;
 import java.sql.*;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 /**
  * esta clase vamos a declarar nuestro atributos de la tabla persona
@@ -127,15 +128,16 @@ public class dato_Persona {
     {
         int revisar=-1;
         int bandera=0;
-       // System.out.println("Datos que llegan de la vista "+nombre+apellid_Pat+
-//                apellido_Mat+edad+sex);
+       System.out.println("Datos que llegan de la vista "+nombre+apellid_Pat+
+           apellido_Mat+edad+sex);
     // JOptionPane.showMessageDialog(null,"Ingresando datos");
      //si hay conexion 
      try{
              if(c.b==true){
          //instruccion sql para selecionar e insertar
                 try{
-                   rs=st.executeQuery("select * from empleados;");
+                   
+                    rs=st.executeQuery("select * from empleados;");
                    revisar=st.executeUpdate("insert into empleados (idempleado,nombre,appat,apmat,edad,sexo) \n" 
                                              +"VALUES"+ "("+idpersona+",\'"+nombre+"\',\'"+apellid_Pat+"\',\'"
                                                      +apellido_Mat+"\',"+edad+",\'"+sex+"\');");
@@ -166,40 +168,7 @@ public class dato_Persona {
      dp.Consulta();
     }
     
-      //para obtner el numero total de dato
-    public int numero()
-     {
-         int x=0;
-         Statement st = c.getConexion();
-         System.out.println(""+st);
-         try{
-             System.out.println("Conectando a la BDD..."+st);
-            
-        try {
-            String sql="select max(idpersona) from personas;";
-            ResultSet rs = st.executeQuery(sql);
-            System.out.println("dasda");
-            if(rs.next())
-            {
-                x=Integer.parseInt(rs.getString(1));
-                x=x+1;
-            }
-            else
-            {
-                x=1;
-            }
-            
-        } catch (SQLException ex) {
-           // ex.printStackTrace();
-        }
-        }catch(Exception e)
-        {
-            x=1;
-          System.err.println("Imposible conectar a la base de datos"+ e);
-          //e.printStackTrace();
-        }
-         return x;
-     }
+     
   //metodo para la consulta de datos
     public String [][] Consulta() throws SQLException{
               String datos[][]=new String[0][6];
@@ -207,6 +176,14 @@ public class dato_Persona {
               int renglon=0;
 //               Statement st = c.createStatement();
                //ResultSet rs = st.executeQuery("SELECT * FROM empleados order by idempleado;");
+         rs=st.executeQuery("select * from empleados;");
+               while(rs.next()){
+               cons++;
+               }
+               if(cons!=0){
+                   datos=new String[cons][6];
+                   
+               
                ResultSet rs = st.executeQuery("SELECT idempleado,nombre,appat,apmat,edad,sexo"
                        + " FROM empleados order by idempleado;");
                
@@ -218,13 +195,19 @@ public class dato_Persona {
                         System.out.println(rs.getString(3));
                         System.out.println(rs.getString(4));
                         System.out.println(rs.getString(5));
-//                      
-//                      
-//                      
-//                      
-//                        
-                      renglon ++;        
+                      datos[renglon][0]=rs.getString(1);
+                      datos[renglon][1]=rs.getString(2);
+                      datos[renglon][2]=rs.getString(3);
+                      datos[renglon][3]=rs.getString(4);
+                      datos[renglon][4]=rs.getString(5);
+                      datos[renglon][5]=rs.getString(6);
+//                  
+//         System.out.println("datpss---"+  datos[renglon][1]);
+                      renglon ++;    
+                     //return datos;
                }
-        return null;
+             }//if
+         
+           return datos;
     }
 }

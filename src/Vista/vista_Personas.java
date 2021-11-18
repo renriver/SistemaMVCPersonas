@@ -6,6 +6,10 @@
 package Vista;
 
 import Datos.dato_Persona;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +18,8 @@ import Datos.dato_Persona;
 public class vista_Personas extends javax.swing.JFrame {
  dato_Persona dp=new dato_Persona();
  int id;
+ String datos[][]=new String[0][6];
+        Object fila[]=new Object[1]; 
     /**
      * Creates new form vista_Personas
      */
@@ -51,7 +57,7 @@ public class vista_Personas extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDatos = new javax.swing.JTable();
-        btnConsulta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,33 +100,34 @@ public class vista_Personas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Altas", jPanel1);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 102)), "Informacion Personal"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 51, 153)), "Informacion del Personal")); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Folio", "Nombre(s)", "Apellido Paterno", "Apellido Materno", "Sexo", "Edad"
+                "Folio ", "Nombre(s)", "Apellido Paterno", "Apellido Materno", "Edad", "Sexo"
             }
         ));
         jScrollPane1.setViewportView(tbDatos);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 370, 90));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 550, 150));
 
-        btnConsulta.setText("Consultar");
-        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Consultar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(btnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
 
-        jTabbedPane1.addTab("Consultas", jPanel2);
+        jTabbedPane1.addTab("Informacion", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 440, 290));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 400, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,7 +136,10 @@ public class vista_Personas extends javax.swing.JFrame {
         // TODO add your handling code here:
         //cuando presiones el boton debe de almacenar los datos al BD
        
-        //dp.GuardarEmpleado("Juan", "Lopez", "Perez", 18, "M");
+//        dp.GuardarEmpleado("Juan", "Lopez", "Perez", "18", "M");
+         String idem= idp.getText();
+         int idpersona=Integer.parseInt(idem);
+        dp.setIdpersona(idpersona);
         dp.setNombre(txtNombre.getText());
         dp.setAppat(txtAppat.getText());
         dp.setApmat(txtApmat.getText());
@@ -141,19 +151,53 @@ public class vista_Personas extends javax.swing.JFrame {
                           txtEdad.getText(),
                           txtSexo.getText());
         int id=dp.idMaximo();
-        
+//   limpies los valore   
         idp.setText(""+id);
         txtNombre.setText("");
         txtAppat.setText("");
         
     }//GEN-LAST:event_bntGuardarActionPerformed
 
-    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
-        // TODO add your handling code here:
-        //tengo que hacer mi logica papra la consulta a la BD atravez de modelo
-        
-    }//GEN-LAST:event_btnConsultaActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     try {
+         // TODO add your handling code here:
+         //los datos de base datos en una tabla
+         //consulta a mi base de datos
+//        dp.Consulta();
+  jScrollPane1.setVisible(true);
 
+      datos_Tabla();
+     } catch (SQLException ex) {
+         Logger.getLogger(vista_Personas.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+//metodo para llenar la tabla
+    public void datos_Tabla() throws SQLException{
+       DefaultTableModel dtm= (DefaultTableModel)tbDatos.getModel();
+        //recorrer los reglones o filas
+        int renglon=0;
+        renglon=dtm.getRowCount();
+        
+        while(renglon>0){
+          dtm.removeRow(renglon-1);
+          renglon=dtm.getRowCount();
+        }
+        //System.out.println(""+renglon);
+               datos =dp.Consulta();
+               System.out.println("___tab____"+datos);
+             for(int i=0;i<6;i++){
+               dtm.addRow(fila);
+             }
+             //llenar la tabla en el frame
+             for(int registro=0;registro<6;registro++)
+             {
+               tbDatos.setValueAt(datos[registro][0], registro, 0);
+               tbDatos.setValueAt(datos[registro][1], registro, 1);
+               tbDatos.setValueAt(datos[registro][2], registro, 2);
+             }
+    }
     /**
      * @param args the command line arguments
      */
@@ -191,8 +235,8 @@ public class vista_Personas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntGuardar;
-    private javax.swing.JButton btnConsulta;
     private javax.swing.JTextField idp;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
